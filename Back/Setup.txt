@@ -1,0 +1,11 @@
+1. Make sure MySql server is running. There should be a connection shown on the homepage of MySql Workbench.
+
+2. Make sure that Node.js is installed. https://nodejs.org/en/download/package-manager.
+
+3. Change values in config.json to the values of your specific MySql server. I think the host and port values are default for MySql, so you should only have to change 
+    user, password, and database as needed. The port value of AppConfig is the port that the router will output the values of the backend to (Can be any open port).
+
+4. Make sure you are in the cwd of "...\Database Proj\Back" and run the command "npm start". By default, this should output the message "Connecting to database on port 3306" and another
+    message "Connected to the database as id <MySql connection ID>"
+
+5. Go to the url "http://localhost:3006/" and check that the success message is displayed.

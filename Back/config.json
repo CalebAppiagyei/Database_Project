@@ -1,0 +1,12 @@
+{
+    "DatabaseConfig": {
+        "user": "<Your username>",
+        "password": "<Your password>",
+        "port": 3306,
+        "database": "test_database",
+        "host": "127.0.0.1"
+    },
+    "AppConfig": {
+        "port": 3006
+    }
+}
