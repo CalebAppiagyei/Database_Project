@@ -104,6 +104,21 @@ VALUES
 
 INSERT INTO football_data.season (year, total_games)
 VALUES
+(2004, 12),
+(2005, 12),
+(2006, 13),
+(2007, 13),
+(2008, 14),
+(2009, 15),
+(2010, 15),
+(2011, 16),
+(2012, 16),
+(2013, 16),
+(2014, 17),
+(2015, 17),
+(2016, 17),
+(2017, 17),
+(2018, 17),
 (2019, 16),
 (2020, 16),
 (2021, 17),
@@ -112,11 +127,26 @@ VALUES
 
 INSERT INTO football_data.coach (coach_id, first_name, last_name)
 VALUES
-(1, 'John', 'Doe'),
-(2, 'Coach', 'Ryan'),
-(3, 'Coach', 'Katelyn'),
-(4, 'Coach', 'Johanna'),
-(5, 'Coach', 'Caleb');
+(1, 'Bill', 'Belichick'),
+(2, 'Andy', 'Reid'),
+(3, 'Sean', 'McVay'),
+(4, 'Mike', 'Tomlin'),
+(5, 'John', 'Harbaugh'),
+(6, 'Pete', 'Carroll'),
+(7, 'Kyle', 'Shanahan'),
+(8, 'Matt', 'LaFleur'),
+(9, 'Sean', 'Payton'),
+(10, 'Doug', 'Pederson'),
+(11, 'Ron', 'Rivera'),
+(12, 'Mike', 'Vrabel'),
+(13, 'Nick', 'Sirianni'),
+(14, 'Dan', 'Campbell'),
+(15, 'Frank', 'Reich'),
+(16, 'Robert', 'Saleh'),
+(17, 'Kevin', 'Stefanski'),
+(18, 'Arthur', 'Smith'),
+(19, 'Zac', 'Taylor'),
+(20, 'Brandon', 'Staley');
 
 INSERT INTO football_data.team (team_id, year, coach_id, conference_id, name)
 VALUES
@@ -124,15 +154,43 @@ VALUES
 (2, 2023, 2, 2, 'Atlanta Falcons'),
 (3, 2023, 3, 1, 'Baltimore Ravens'),
 (4, 2023, 4, 1, 'Buffalo Bills'),
-(5, 2023, 5, 2, 'Carolina Panthers');
+(5, 2023, 5, 2, 'Carolina Panthers'),
+(6, 2022, 6, 3, 'Chicago Bears'),
+(7, 2022, 7, 3, 'Cincinnati Bengals'),
+(8, 2022, 8, 4, 'Cleveland Browns'),
+(9, 2021, 9, 4, 'Dallas Cowboys'),
+(10, 2021, 10, 5, 'Denver Broncos'),
+(11, 2021, 11, 5, 'Detroit Lions'),
+(12, 2020, 12, 6, 'Green Bay Packers'),
+(13, 2020, 13, 6, 'Houston Texans'),
+(14, 2020, 14, 7, 'Indianapolis Colts'),
+(15, 2019, 15, 7, 'Jacksonville Jaguars'),
+(16, 2019, 16, 8, 'Kansas City Chiefs'),
+(17, 2019, 17, 8, 'Las Vegas Raiders'),
+(18, 2018, 18, 9, 'Los Angeles Chargers'),
+(19, 2018, 19, 9, 'Los Angeles Rams'),
+(20, 2018, 20, 10, 'Miami Dolphins');
 
 INSERT INTO football_data.position (position_id, position_name)
 VALUES
 (1, 'Quarterback'),
 (2, 'Runningback'),
 (3, 'Wide Receiver'),
-(4, 'Tight end'),
-(5, 'Kicker');
+(4, 'Tight End'),
+(5, 'Kicker'),
+(6, 'Punter'),
+(7, 'Linebacker'),
+(8, 'Cornerback'),
+(9, 'Safety'),
+(10, 'Defensive End'),
+(11, 'Defensive Tackle'),
+(12, 'Offensive Tackle'),
+(13, 'Offensive Guard'),
+(14, 'Center'),
+(15, 'Fullback'),
+(16, 'Long Snapper'),
+(17, 'Holder'),
+(18, 'Return Specialist');
 
 INSERT INTO football_data.game (game_id, year, team_home, team_away)
 VALUES
@@ -140,7 +198,22 @@ VALUES
 (2, 2023, 3, 4),
 (3, 2023, 5, 1),
 (4, 2023, 2, 3),
-(5, 2023, 4, 5);
+(5, 2023, 4, 5),
+(6, 2022, 6, 7),
+(7, 2022, 8, 6),
+(8, 2021, 9, 10),
+(9, 2021, 11, 9),
+(10, 2021, 10, 11),
+(11, 2020, 12, 13),
+(12, 2020, 14, 12),
+(13, 2019, 15, 16),
+(14, 2019, 17, 15),
+(15, 2019, 16, 17),
+(16, 2018, 18, 19),
+(17, 2018, 20, 18),
+(18, 2018, 19, 20),
+(19, 2023, 2, 4),
+(20, 2022, 3, 6);
 
 INSERT INTO football_data.game_stats (game_id, team_id, total_yards, total_tds, total_fgs, turnovers)
 VALUES
@@ -148,7 +221,22 @@ VALUES
 (1, 2, 280, 2, 0, 2),
 (2, 3, 400, 4, 1, 1),
 (2, 4, 290, 2, 2, 0),
-(3, 5, 310, 3, 0, 1);
+(3, 5, 310, 3, 0, 1),
+(3, 1, 320, 3, 1, 1),
+(4, 2, 285, 1, 2, 3),
+(4, 3, 370, 4, 0, 2),
+(5, 4, 300, 3, 0, 2),
+(5, 5, 250, 2, 1, 1),
+(6, 6, 410, 5, 1, 1),
+(6, 7, 390, 4, 2, 0),
+(7, 8, 315, 3, 1, 3),
+(7, 6, 295, 2, 1, 1),
+(8, 9, 450, 6, 2, 1),
+(8, 10, 320, 3, 0, 2),
+(9, 11, 330, 3, 2, 1),
+(10, 12, 300, 2, 1, 2),
+(11, 13, 310, 2, 1, 1),
+(12, 14, 400, 4, 1, 0);
 
 -- Sample Data for player --
 INSERT INTO football_data.player (player_id, position_id, first_name, last_name)
@@ -157,13 +245,43 @@ VALUES
 (2, 2, 'Derrick', 'Henry'),
 (3, 3, 'Tyreek', 'Hill'),
 (4, 4, 'Travis', 'Kelce'),
-(5, 5, 'Justin', 'Tucker');
+(5, 5, 'Justin', 'Tucker'),
+(6, 1, 'Josh', 'Allen'),
+(7, 2, 'Alvin', 'Kamara'),
+(8, 3, 'Stefon', 'Diggs'),
+(9, 4, 'George', 'Kittle'),
+(10, 5, 'Harrison', 'Butker'),
+(11, 1, 'Lamar', 'Jackson'),
+(12, 2, 'Saquon', 'Barkley'),
+(13, 3, 'Davante', 'Adams'),
+(14, 4, 'Darren', 'Waller'),
+(15, 5, 'Robbie', 'Gould'),
+(16, 1, 'Aaron', 'Rodgers'),
+(17, 2, 'Jonathan', 'Taylor'),
+(18, 3, 'Justin', 'Jefferson'),
+(19, 4, 'Mark', 'Andrews'),
+(20, 5, 'Evan', 'McPherson');
 
 -- Sample Data for player_stats --
 INSERT INTO football_data.player_stats (player_id, game_id, team_id, passing_yds, rushing_yds, receiving_yds, passing_tds, rushing_tds, receiving_tds, misc_tds, pass_attempts, completions, rush_attempts, targets, receptions, turnovers)
 VALUES
 (1, 1, 1, 320, 0, 0, 3, 0, 0, 0, 35, 25, 0, 0, 0, 1),
 (2, 1, 2, 0, 140, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 0),
-(3, 2, 3, 0, 0, 160, 0, 0, 2, 0, 0, 0, 0, 8, 6, 1),
-(4, 2, 4, 0, 0, 100, 0, 0, 1, 0, 0, 0, 0, 7, 5, 0),
-(5, 3, 5, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0);
+(3, 2, 3, 0, 0, 160, 0, 0, 2, 0, 0, 0, 8, 6, 1),
+(4, 2, 4, 0, 0, 100, 0, 0, 1, 0, 0, 0, 7, 5, 0),
+(5, 3, 5, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0),
+(6, 3, 1, 250, 50, 0, 2, 1, 0, 0, 30, 20, 6, 0, 0, 1),
+(7, 3, 2, 0, 120, 0, 0, 2, 0, 0, 0, 0, 18, 0, 0, 1),
+(8, 4, 3, 0, 0, 150, 0, 0, 1, 0, 0, 0, 10, 8, 0),
+(9, 4, 4, 0, 0, 85, 0, 0, 1, 0, 0, 0, 9, 7, 0),
+(10, 4, 5, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0),
+(11, 5, 1, 295, 70, 0, 2, 1, 0, 0, 28, 18, 10, 0, 0, 2),
+(12, 5, 2, 0, 130, 0, 0, 1, 0, 0, 0, 0, 22, 0, 0, 1),
+(13, 5, 3, 0, 0, 110, 0, 0, 2, 0, 0, 0, 9, 7, 0),
+(14, 5, 4, 0, 0, 75, 0, 0, 1, 0, 0, 0, 5, 4, 0),
+(15, 5, 5, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0),
+(16, 1, 1, 305, 0, 0, 2, 0, 0, 0, 33, 24, 0, 0, 0, 1),
+(17, 2, 2, 0, 145, 0, 0, 1, 0, 0, 0, 0, 19, 0, 0, 0),
+(18, 3, 3, 0, 0, 130, 0, 0, 1, 0, 0, 0, 12, 10, 0),
+(19, 4, 4, 0, 0, 95, 0, 0, 1, 0, 0, 0, 6, 5, 0),
+(20, 5, 5, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0);
