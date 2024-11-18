@@ -3,10 +3,13 @@
         "user": "<Your username>",
         "password": "<Your password>",
         "port": 3306,
-        "database": "test_database",
+        "database": "<Database name>",
         "host": "127.0.0.1"
     },
-    "AppConfig": {
-        "port": 3006
+    "Backend": {
+        "port": 5000
+    }, 
+    "Frontend": {
+        "port": 3000
     }
 }
