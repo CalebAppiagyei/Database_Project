@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
+  const BACKENDPORT = 5000;
+  const BACKENDURL = `http://localhost:${BACKENDPORT}`
   const initialData = {
     Game: [
       { Game_id: 1, Year: 2023, Team_away: "Arizona Cardinals", Team_home: "Buffalo Bills" },
@@ -84,10 +87,32 @@ function App() {
     );
   };
 
-  return (
-    <div className="App">
-      <h1>Sports Database Management</h1>
+  fetch(`${BACKENDURL}/getGame`).then(
+    response => response.json()
+  ).then(
+    data => {}
+  ).catch(
+    error => console.error('An error occured: ', error)
+  )
+  // const handleLogIn = () => {
+  //   fetch(`${BACKEND_URL}/api/login`).then(
+  //       response => response.json()
+  //   ).then(
+  //       data => {
+  //           console.log(data) //Trying to figure out what is returned on a successful login
+  //           setIsLoggedIn(true); //Will only be set on a successful login
+  //       }
+  //   ).catch(
+  //       error => console.error('An error occured while signing in: ', error)
+  //   )
+  // }
 
+
+
+  return (
+    <Router>
+      <div className="App">
+      <h1>Sports Database Management</h1>
       {Object.keys(data).map((table) => (
         <div key={table} className="section">
           <h2>{table}</h2>
@@ -137,6 +162,7 @@ function App() {
         </>
       )}
     </div>
+    </Router>
   );
 }
 

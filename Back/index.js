@@ -3,62 +3,67 @@ const config = require('./config.json');
 const app = express();
 const connection = require("./db");
 
+const BACKENDPORT = 5000
 // Start the server and connect to the database.
-app.listen(config.Backend.port, function() {
-    console.log(`Server running on port ${config.Backend.port}`);
-    connection.connect(function(err) {
-      if (err) {
-        console.error('Error connecting to the database:', err);
-        process.exit(1);
-      }
-      console.log('Connected to the database');
-    });
-  });
+app.listen(BACKENDPORT, function(){
+  console.log(`Listening on ${config.Backend.port}`)
+});
 
-// app.get('/', function(req, res) {
-//   const sql = `
-//     SELECT CONCAT('SELECT * FROM ', table_name, ';') AS query
-//     FROM INFORMATION_SCHEMA.TABLES
-//     WHERE table_schema = 'football_data';
-//   `;
+app.get("/", async (req, res) => {
+  console.log("This endpoint works /")
+});
 
-//   connection.query(sql, function(err, results) {
-//     if (err) {
-//       console.error('Error fetching table queries:', err);
-//       return res.status(500).send('Error fetching table queries');
-//     }
 
-//     let allData = [];
-
-//     function executeQuery(index) {
-//       if (index >= results.length) {
-//         return res.send(
-//           `Connected to the database as id ${connection.threadId}! The database contents are as follows:\n ${JSON.stringify(allData, null, 2)}`
-//         );
-//       }
-    
-//       const query = results[index].query;
-//       const table_name = query.split(' ')[3];
-    
-//       connection.query(query, function(err, tableData) {
-//         if (err) {
-//           console.error('Error executing query:', query, err);
-//           return res.status(500).send('Error fetching table data');
-//         }
-//         allData.push({ table: table_name, data: tableData });
-//         executeQuery(index + 1);
-//       });
-//     }
-//     executeQuery(0);
-//   });
-// });
+function position_to_id(position){
+  if (position === "QB"){
+    return 1;
+  }
+  else if (position === "RB" || position === "FB"){
+    return 2;
+  }
+  else if (position === "WR"){
+    return 3;
+  }
+  else if (position === "TE"){
+    return 4;
+  }
+  else if (position == "K"){
+    return 5;
+  }
+  return -1;
+}
 
 //Add a game to the database or edit a game in the database
 app.post('/addGame', function(req, res) {
+  //const { Name, position, team } = req.body;
 
+  // const Name = "Test"
+  // const position = "Test"
+  // const position_id = 7
+  // const team = "Test"
+  // //Random column
+  // const extra = ''
+  // const sql = `
+  //   INSERT INTO players (position_id, Name, position, team, extra)
+  //   VALUES (?, ?, ?, ?, ?);
+  // `;
+
+  // connection.query(sql, [position_id, Name, position, team, extra], function(err, results) {
+  //   if (err) {
+  //     console.error('Error inserting player into database:', err);
+  //     return res.status(500).send('Error adding player');
+  //   }
+
+  //   res.status(201).send({ message: 'Player added successfully', playerId: results.insertId });
+  // });
+  console.log("REERE")
 })
 
-app.get('/getGame', function(req, res) {
+app.get('/getGame', async function(req, res) {
+  console.log("REc");
+})
+
+app.get('/getAllGames', function(req, res){
 
 })
 
@@ -71,6 +76,10 @@ app.post('addPlayer', function(req, res){
 })
 
 app.get('/getPlayer', function(req, res){
+
+})
+
+app.get('/getAllPlayers', function(req, res){
 
 })
 
