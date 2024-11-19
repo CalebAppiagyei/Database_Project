@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-//Can call the backend routing functions from the frontend routing file
-import * as routes from './routes.js';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
+import AdminView from "./views/AdminView";
+import "./AdminView.css";
 
 function App() {
   const initialData = {
@@ -16,137 +16,44 @@ function App() {
   };
 
   const [data, setData] = useState(initialData);
-  const [selectedTable, setSelectedTable] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [action, setAction] = useState(null); // 'add' or 'edit'
-  const [formData, setFormData] = useState({});
-  const [selectedRow, setSelectedRow] = useState(null);
-
-  useEffect(() => {
-    // Log data to verify structure
-    console.log("Data structure:", data);
-  }, [data]);
-
-  useEffect(() => {
-    //In scenarios like this where await is not directly supported, you have to create an async function
-    //To wait on the promise to be fulfilled
-    async function fetchPlayers(){
-      const players = await routes.getAllPlayers();
-      console.log(players);
-    }
-    fetchPlayers();
-  }, [])
-  const openModal = (table, actionType, row = null) => {
-    setSelectedTable(table);
-    setAction(actionType);
-    setFormData(row || {});
-    setModalVisible(true);
-    setSelectedRow(row);
-  };
-
-  const handleAdd = (table) => openModal(table, "add");
-
-  const handleEdit = (table, row) => openModal(table, "edit", row);
-
-  const handleDelete = (table, row) => {
-    const updatedTable = data[table].filter((r) => r !== row);
-    setData({ ...data, [table]: updatedTable });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let updatedTable;
-    if (action === "add") {
-      const newEntry = { ...formData };
-      
-      // Auto-increment primary keys for tables with unique identifiers
-      if (selectedTable === "Game") {
-        const highestId = Math.max(...data.Game.map((item) => item.Game_id), 0);
-        newEntry.Game_id = highestId + 1;
-      } else if (selectedTable === "PlayerStats") {
-        const highestId = Math.max(...data.PlayerStats.map((item) => item.Player_id), 0);
-        newEntry.Player_id = highestId + 1;
-      }
-
-      updatedTable = [...data[selectedTable], newEntry];
-    } else if (action === "edit") {
-      updatedTable = data[selectedTable].map((item) =>
-        item === selectedRow ? formData : item
-      );
-    }
-    setData({ ...data, [selectedTable]: updatedTable });
-    setModalVisible(false);
-    setFormData({});
-  };
-
-  const renderField = (field, value) => {
-    // Auto-assign fields like Game_id or Player_id; skip them in the form
-    if (field === "Game_id" || field === "Player_id") {
-      return <span>{value || "Auto-assigned"}</span>;
-    }
-
-    return (
-      <input
-        type="text"
-        name={field}
-        value={value || ""}
-        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-      />
-    );
-  };
 
   return (
+    <Router>
       <div className="App">
-      <h1>Sports Database Management</h1>
-      {Object.keys(data).map((table) => (
-        <div key={table} className="section">
-          <h2>{table}</h2>
-          <button onClick={() => handleAdd(table)}>Add {table}</button>
-          <table>
-            <thead>
-              <tr>
-                {Object.keys(data[table][0]).map((col) => (
-                  <th key={col}>{col}</th>
-                ))}
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data[table].map((row, index) => (
-                <tr key={index}>
-                  {Object.values(row).map((val, idx) => (
-                    <td key={idx}>{val}</td>
-                  ))}
-                  <td>
-                    <button className="edit-btn" onClick={() => handleEdit(table, row)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDelete(table, row)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
 
-      {modalVisible && (
-        <>
-          <div className="overlay" onClick={() => setModalVisible(false)} />
-          <div className="modal">
-            <h2>{action === "add" ? `Add to ${selectedTable}` : `Edit ${selectedTable}`}</h2>
-            <form onSubmit={handleSubmit}>
-              {Object.keys(data[selectedTable][0]).map((field) => (
-                <div key={field}>
-                  <label>{field}:</label>
-                  {renderField(field, formData[field])}
-                </div>
-              ))}
-              <button type="submit">{action === "add" ? "Insert" : "Update"}</button>
-              <button type="button" onClick={() => setModalVisible(false)}>Cancel</button>
-            </form>
-          </div>
-        </>
-      )}
-    </div>
+
+        {/* Routes */}
+        <Routes>
+          <Route 
+            path="/admin" 
+            element={
+              <>
+                <h1>Admin Panel</h1>
+                <AdminView data={data} setData={setData} />
+              </>
+            } 
+          />
+          <Route 
+            path="/user" 
+            element={
+              <>
+                <h1>User Panel</h1>
+                <div>This is the User View (to be implemented).</div>
+              </>
+            } 
+          />
+          <Route 
+            path="/" 
+            element={
+              <>
+                <h1>Welcome</h1>
+                <p>THIS WILL BE LOGIN PAGE???</p>
+              </>
+            } 
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
