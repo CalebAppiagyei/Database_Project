@@ -87,27 +87,59 @@ function App() {
     );
   };
 
-  fetch(`${BACKENDURL}/getGame`).then(
-    response => response.json()
-  ).then(
-    data => {}
-  ).catch(
-    error => console.error('An error occured: ', error)
-  )
-  // const handleLogIn = () => {
-  //   fetch(`${BACKEND_URL}/api/login`).then(
-  //       response => response.json()
-  //   ).then(
-  //       data => {
-  //           console.log(data) //Trying to figure out what is returned on a successful login
-  //           setIsLoggedIn(true); //Will only be set on a successful login
-  //       }
-  //   ).catch(
-  //       error => console.error('An error occured while signing in: ', error)
-  //   )
-  // }
+  
+  async function addPlayer(){
+    //TODO: Add a function parameter for the player and update contents
 
+    //Update with the contents of the data of the player to be added
+    //Only these 3 fields are needed to add a player
+    const contents = {
+      Name: "Test",
+      position: "QB",
+      team: "test"
+    };
+    
+    try{
+      //Send the request to the backend
+      const response = await fetch(`${BACKENDURL}/addPlayer`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(contents),
+      });
 
+      //Wait for the result from the backend
+      const result = await response.json();
+      console.log(result);
+
+      //TODO: assign the player ID to the player on the frontend
+      //Right now, the backend sends the playerID that was given to the player on DB insertion
+      const playerID = result.playerID;
+
+    } catch (error) {
+      console.error('An error occurred while adding a player:', error);
+    }
+  }
+
+  async function getPlayer(playerID){
+    try {
+      //Send the request to the backend
+      const response = await fetch(`${BACKENDURL}/getPlayer/${playerID}`);
+      const result = await response.json();
+
+      //Access all of the fields sent by a successful response
+      const player = result.player;
+      const { player_id, name, team, position, position_id } = player;
+
+      console.log('Player details:', { player_id, name, team, position, position_id });
+
+      // TODO: whatever is needed with the player data
+
+  } catch (error) {
+      console.error('An error occurred while getting a player:', error);
+  }
+  };
 
   return (
     <Router>

@@ -1,19 +1,40 @@
 const express = require("express");
 const config = require('./config.json');
+const cors = require('cors');
 const app = express();
 const connection = require("./db");
 
 const BACKENDPORT = 5000
-// Start the server and connect to the database.
+
+// CORS stuff
+const allowedOrigins = [`http://localhost:${config.Frontend.port}`];
+
+app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }));
+
+// What the app will use to parse json bodies from requests
+app.use(express.json());
+
+
+// Start listening to the port
 app.listen(BACKENDPORT, function(){
   console.log(`Listening on ${config.Backend.port}`)
 });
 
+// This endpoint gets called on every rerender of the frontend
 app.get("/", async (req, res) => {
   console.log("This endpoint works /")
 });
 
-
+/* Convert the string name of a position to the corresponding position ID */
 function position_to_id(position){
   if (position === "QB"){
     return 1;
@@ -33,57 +54,87 @@ function position_to_id(position){
   return -1;
 }
 
-//Add a game to the database or edit a game in the database
-app.post('/addGame', function(req, res) {
-  //const { Name, position, team } = req.body;
-
-  // const Name = "Test"
-  // const position = "Test"
-  // const position_id = 7
-  // const team = "Test"
-  // //Random column
-  // const extra = ''
-  // const sql = `
-  //   INSERT INTO players (position_id, Name, position, team, extra)
-  //   VALUES (?, ?, ?, ?, ?);
-  // `;
-
-  // connection.query(sql, [position_id, Name, position, team, extra], function(err, results) {
-  //   if (err) {
-  //     console.error('Error inserting player into database:', err);
-  //     return res.status(500).send('Error adding player');
-  //   }
-
-  //   res.status(201).send({ message: 'Player added successfully', playerId: results.insertId });
-  // });
-  console.log("REERE")
-})
-
-app.get('/getGame', async function(req, res) {
-  console.log("REc");
-})
-
-app.get('/getAllGames', function(req, res){
+app.get('/getAllPlayers', async function(req, res){
 
 })
 
-app.get('/deleteGame', function(req, res){
+app.get('/getAllGames', async function(req, res){
 
 })
 
-app.post('addPlayer', function(req, res){
+app.post('/addGame', async function(req, res) {
     
 })
 
-app.get('/getPlayer', function(req, res){
+app.post('/updateGame/:gameID', async function(req, res){
 
 })
 
-app.get('/getAllPlayers', function(req, res){
+app.get('/getGame/:gameID', async function(req, res) {
+  
+})
+
+app.get('/deleteGame/:gameID', async function(req, res){
 
 })
 
-app.delete('/deletePlayer', function(req, res){
+app.post('/addPlayer', async function(req, res){
+    //Unpack all of the fields sent in the request from the front end
+    const { Name, position, team } = req.body;
+    if (!Name || !position || !team) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    //Get data ready for SQL insert
+    const position_id = position_to_id(position);
+    const extra = ''
+    const sql = `
+        INSERT INTO player (position_id, Name, position, team, extra)
+        VALUES (?, ?, ?, ?, ?);
+    `;
+
+    //Add data to the table
+    connection.query(sql, [position_id, Name, position, team, extra], function(err, results) {
+        if (err) {
+            console.error('Error inserting player into database:', err);
+            return res.status(500).json({ error: 'Error adding player' });
+        }
+        res.status(200).json({ 
+            message: 'Player added successfully', 
+            playerId: results.insertId
+        });
+    });
+})
+
+app.get('/getPlayer/:playerID', async function(req, res){
+    const id = req.params.playerID
+
+    const sql = `
+        SELECT * FROM player WHERE player_id = ?
+    `;
+
+    connection.query(sql, [id], function(err, results) {
+        if (err) {
+            console.error('Error getting player from database:', err);
+            return res.status(500).json({ error: 'Error getting player' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Player not found' });
+        }
+
+        res.status(200).json({ 
+            message: 'Player retrieved successfully', 
+            player: results[0]
+        });
+    });
+
+})
+
+app.get('/updatePlayer/:playerID', async function(req, res){
+
+})
+
+app.delete('/deletePlayer/:playerID', async function(req, res){
 
 })
 
