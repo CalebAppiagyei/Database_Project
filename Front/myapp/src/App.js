@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//Can call the backend routing functions from the frontend routing file
+import * as routes from './routes.js';
 
 function App() {
-  const BACKENDPORT = 5000;
-  const BACKENDURL = `http://localhost:${BACKENDPORT}`
   const initialData = {
     Game: [
       { Game_id: 1, Year: 2023, Team_away: "Arizona Cardinals", Team_home: "Buffalo Bills" },
@@ -28,6 +27,15 @@ function App() {
     console.log("Data structure:", data);
   }, [data]);
 
+  useEffect(() => {
+    //In scenarios like this where await is not directly supported, you have to create an async function
+    //To wait on the promise to be fulfilled
+    async function fetchPlayers(){
+      const players = await routes.getAllPlayers();
+      console.log(players);
+    }
+    fetchPlayers();
+  }, [])
   const openModal = (table, actionType, row = null) => {
     setSelectedTable(table);
     setAction(actionType);
@@ -87,62 +95,7 @@ function App() {
     );
   };
 
-  
-  async function addPlayer(){
-    //TODO: Add a function parameter for the player and update contents
-
-    //Update with the contents of the data of the player to be added
-    //Only these 3 fields are needed to add a player
-    const contents = {
-      Name: "Test",
-      position: "QB",
-      team: "test"
-    };
-    
-    try{
-      //Send the request to the backend
-      const response = await fetch(`${BACKENDURL}/addPlayer`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(contents),
-      });
-
-      //Wait for the result from the backend
-      const result = await response.json();
-      console.log(result);
-
-      //TODO: assign the player ID to the player on the frontend
-      //Right now, the backend sends the playerID that was given to the player on DB insertion
-      const playerID = result.playerID;
-
-    } catch (error) {
-      console.error('An error occurred while adding a player:', error);
-    }
-  }
-
-  async function getPlayer(playerID){
-    try {
-      //Send the request to the backend
-      const response = await fetch(`${BACKENDURL}/getPlayer/${playerID}`);
-      const result = await response.json();
-
-      //Access all of the fields sent by a successful response
-      const player = result.player;
-      const { player_id, name, team, position, position_id } = player;
-
-      console.log('Player details:', { player_id, name, team, position, position_id });
-
-      // TODO: whatever is needed with the player data
-
-  } catch (error) {
-      console.error('An error occurred while getting a player:', error);
-  }
-  };
-
   return (
-    <Router>
       <div className="App">
       <h1>Sports Database Management</h1>
       {Object.keys(data).map((table) => (
@@ -194,7 +147,6 @@ function App() {
         </>
       )}
     </div>
-    </Router>
   );
 }
 

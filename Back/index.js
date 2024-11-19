@@ -10,7 +10,7 @@ const util = require('util')
 const query = util.promisify(connection.query).bind(connection);
 
 // CORS stuff
-const allowedOrigins = [`http://localhost:${config.Frontend.port}`];
+const allowedOrigins = [`http://localhost:${config.Frontend.port1}`, `http://localhost:${config.Frontend.port2}`];
 
 app.use(cors({
     origin: function (origin, callback) {
