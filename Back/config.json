@@ -10,6 +10,6 @@
         "port": 5000
     }, 
     "Frontend": {
-        "port": 3000
+        "port": 3001
     }
 }

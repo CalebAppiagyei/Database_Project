@@ -1,80 +1,140 @@
 const express = require("express");
 const config = require('./config.json');
+const cors = require('cors');
 const app = express();
 const connection = require("./db");
 
-// Start the server and connect to the database.
-app.listen(config.Backend.port, function() {
-    console.log(`Server running on port ${config.Backend.port}`);
-    connection.connect(function(err) {
-      if (err) {
-        console.error('Error connecting to the database:', err);
-        process.exit(1);
+const BACKENDPORT = 5000
+
+// CORS stuff
+const allowedOrigins = [`http://localhost:${config.Frontend.port}`];
+
+app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
       }
-      console.log('Connected to the database');
+    },
+    credentials: true,
+  }));
+
+// What the app will use to parse json bodies from requests
+app.use(express.json());
+
+
+// Start listening to the port
+app.listen(BACKENDPORT, function(){
+  console.log(`Listening on ${config.Backend.port}`)
+});
+
+// This endpoint gets called on every rerender of the frontend
+app.get("/", async (req, res) => {
+  console.log("This endpoint works /")
+});
+
+/* Convert the string name of a position to the corresponding position ID */
+function position_to_id(position){
+  if (position === "QB"){
+    return 1;
+  }
+  else if (position === "RB" || position === "FB"){
+    return 2;
+  }
+  else if (position === "WR"){
+    return 3;
+  }
+  else if (position === "TE"){
+    return 4;
+  }
+  else if (position == "K"){
+    return 5;
+  }
+  return -1;
+}
+
+app.get('/getAllPlayers', async function(req, res){
+
+})
+
+app.get('/getAllGames', async function(req, res){
+
+})
+
+app.post('/addGame', async function(req, res) {
+    
+})
+
+app.post('/updateGame/:gameID', async function(req, res){
+
+})
+
+app.get('/getGame/:gameID', async function(req, res) {
+  
+})
+
+app.get('/deleteGame/:gameID', async function(req, res){
+
+})
+
+app.post('/addPlayer', async function(req, res){
+    //Unpack all of the fields sent in the request from the front end
+    const { Name, position, team } = req.body;
+    if (!Name || !position || !team) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    //Get data ready for SQL insert
+    const position_id = position_to_id(position);
+    const extra = ''
+    const sql = `
+        INSERT INTO player (position_id, Name, position, team, extra)
+        VALUES (?, ?, ?, ?, ?);
+    `;
+
+    //Add data to the table
+    connection.query(sql, [position_id, Name, position, team, extra], function(err, results) {
+        if (err) {
+            console.error('Error inserting player into database:', err);
+            return res.status(500).json({ error: 'Error adding player' });
+        }
+        res.status(200).json({ 
+            message: 'Player added successfully', 
+            playerId: results.insertId
+        });
     });
-  });
+})
 
-// app.get('/', function(req, res) {
-//   const sql = `
-//     SELECT CONCAT('SELECT * FROM ', table_name, ';') AS query
-//     FROM INFORMATION_SCHEMA.TABLES
-//     WHERE table_schema = 'football_data';
-//   `;
+app.get('/getPlayer/:playerID', async function(req, res){
+    const id = req.params.playerID
 
-//   connection.query(sql, function(err, results) {
-//     if (err) {
-//       console.error('Error fetching table queries:', err);
-//       return res.status(500).send('Error fetching table queries');
-//     }
+    const sql = `
+        SELECT * FROM player WHERE player_id = ?
+    `;
 
-//     let allData = [];
+    connection.query(sql, [id], function(err, results) {
+        if (err) {
+            console.error('Error getting player from database:', err);
+            return res.status(500).json({ error: 'Error getting player' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Player not found' });
+        }
 
-//     function executeQuery(index) {
-//       if (index >= results.length) {
-//         return res.send(
-//           `Connected to the database as id ${connection.threadId}! The database contents are as follows:\n ${JSON.stringify(allData, null, 2)}`
-//         );
-//       }
-    
-//       const query = results[index].query;
-//       const table_name = query.split(' ')[3];
-    
-//       connection.query(query, function(err, tableData) {
-//         if (err) {
-//           console.error('Error executing query:', query, err);
-//           return res.status(500).send('Error fetching table data');
-//         }
-//         allData.push({ table: table_name, data: tableData });
-//         executeQuery(index + 1);
-//       });
-//     }
-//     executeQuery(0);
-//   });
-// });
-
-//Add a game to the database or edit a game in the database
-app.post('/addGame', function(req, res) {
+        res.status(200).json({ 
+            message: 'Player retrieved successfully', 
+            player: results[0]
+        });
+    });
 
 })
 
-app.get('/getGame', function(req, res) {
+app.get('/updatePlayer/:playerID', async function(req, res){
 
 })
 
-app.get('/deleteGame', function(req, res){
-
-})
-
-app.post('addPlayer', function(req, res){
-    
-})
-
-app.get('/getPlayer', function(req, res){
-
-})
-
-app.delete('/deletePlayer', function(req, res){
+app.delete('/deletePlayer/:playerID', async function(req, res){
 
 })
 
