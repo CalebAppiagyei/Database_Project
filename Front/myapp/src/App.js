@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
 import AdminView from "./views/AdminView";
 import "./AdminView.css";
-
+import Searchbar from "./components/Searchbar";
+const BookData = require('./Data.json')
 function App() {
   const initialData = {
     Game: [
@@ -48,6 +49,42 @@ function App() {
               <>
                 <h1>Welcome</h1>
                 <p>THIS WILL BE LOGIN PAGE???</p>
+              </>
+            } 
+          />
+          <Route 
+            path="/player" 
+            element={
+              <>
+                <h1>Player Search</h1>
+                <Searchbar placeholder="Enter a player" data={BookData}/>
+              </>
+            } 
+          />
+          <Route 
+            path="/coach" 
+            element={
+              <>
+                <h1>Coach Search</h1>
+                <Searchbar placeholder="Enter a coach" data={BookData}/>
+              </>
+            } 
+          />
+          <Route 
+            path="/team" 
+            element={
+              <>
+                <h1>Team Search</h1>
+                <Searchbar placeholder="Enter a team" data={BookData}/>
+              </>
+            } 
+          />
+          <Route 
+            path="/compare" 
+            element={
+              <>
+                <h1>Welcome</h1>
+                <p>THIS WILL BE COMPARE PAGE???</p>
               </>
             } 
           />
