@@ -25,7 +25,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchPlayers = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/getAllPlayers`);
+        const response = await fetch(`http://localhost:5000/getAllPlayers`);
         const result = await response.json();
         if (response.ok) {
           setData({ Player: result.players });
@@ -39,7 +39,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchPlayerStats = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/getAllPlayerStats`);
+      const response = await fetch(`http://localhost:5000/getAllPlayerStats`);
       const result = await response.json();
       if (response.ok) {
         setData({ PlayerStats: result.playerStats });
@@ -53,7 +53,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchGames = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/getAllGames`);
+        const response = await fetch(`http://localhost:5000/getAllGames`);
         const result = await response.json();
         if (response.ok) {
             setData({ Game: result.games });
@@ -67,7 +67,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchGameStats = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/getAllGameStats`);
+        const response = await fetch(`http://localhost:5000/getAllGameStats`);
         const result = await response.json();
         if (response.ok) {
             setData({ GameStats: result.gameStats });
@@ -81,7 +81,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchCoach = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/getAllCoachs`);
+        const response = await fetch(`http://localhost:5000/getAllCoachs`);
         const result = await response.json();
         if (response.ok) {
             setData({ Coach: result.coachs })
@@ -95,7 +95,7 @@ const AdminView = ({ data, setData }) => {
 
   const fetchTeam = async () => {
     try {
-        const response = await fetch(`http://localhost:3001/getAllTeams`);
+        const response = await fetch(`http://localhost:5000/getAllTeams`);
         const result = await response.json();
         if (response.ok) {
             setData({ Team: result.teams })
@@ -132,22 +132,22 @@ const AdminView = ({ data, setData }) => {
   
       // Determine the endpoint and ID field based on the table
       if (table === "Player") {
-        endpoint = `http://localhost:3001/deletePlayer/${row.Player_id}`;
+        endpoint = `http://localhost:5000/deletePlayer/${row.Player_id}`;
         idField = "Player_id";
       } else if (table === "PlayerStats") {
-        endpoint = `http://localhost:3001/deletePlayerStats/${row.Player_id}`;
+        endpoint = `http://localhost:5000/deletePlayerStats/${row.Player_id}`;
         idField = "Player_id"
       }else if (table === "Game") {
-        endpoint = `http://localhost:3001/deleteGame/${row.Game_id}`;
+        endpoint = `http://localhost:5000/deleteGame/${row.Game_id}`;
         idField = "Game_id";
       } else if (table === "GameStats") {
-        endpoint = `http://localhost:3001/deleteGameStats/${row.Game_id}`;
+        endpoint = `http://localhost:5000/deleteGameStats/${row.Game_id}`;
         idField = "Game_id";
       } else if (table === "Coach") {
-        endpoint = `http://localhost:3001/deleteCoach/${row.Coach_id}`;
+        endpoint = `http://localhost:5000/deleteCoach/${row.Coach_id}`;
         idField = "Coach_id";
       } else if (table === "Team") {
-        endpoint = `http://localhost:3001/deleteTeam/${row.Team_id}`;
+        endpoint = `http://localhost:5000/deleteTeam/${row.Team_id}`;
         idField = "Team_id";
       }
   

@@ -47,7 +47,7 @@ function App() {
             path="/admin" 
             element={
               <>
-                <h1>Admin Panel</h1>
+                <h1>Admin View</h1>
                 <AdminView data={data} setData={setData} />
               </>
             } 
@@ -56,8 +56,8 @@ function App() {
             path="/user" 
             element={
               <>
-                <h1>User Panel</h1>
-                <div>This is the User View (to be implemented).</div>
+                <h1>The Fantasy Football Database</h1>
+                <div>Search and compare your favorite coachs, teams, and players.</div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', marginTop: '10rem' }}>
                   <CoachCard />
                   <PlayerCard />
