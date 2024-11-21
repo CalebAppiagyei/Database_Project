@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import AdminView from "./views/AdminView";
 import "./AdminView.css";
 import Searchbar from "./components/Searchbar";
+import CoachCard from "./components/CoachCard";
+import PlayerCard from "./components/PlayerCard";
+import TeamCard from "./components/TeamCard";
 const BookData = require('./Data.json')
 function App() {
   const initialData = {
@@ -55,9 +58,15 @@ function App() {
               <>
                 <h1>User Panel</h1>
                 <div>This is the User View (to be implemented).</div>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', marginTop: '10rem' }}>
+                  <CoachCard />
+                  <PlayerCard />
+                  <TeamCard />
+                </div>
               </>
             } 
           />
+
           <Route 
             path="/" 
             element={
