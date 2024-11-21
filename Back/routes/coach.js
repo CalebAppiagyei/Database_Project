@@ -32,9 +32,9 @@ router.post('/addCoach', async function(req, res){
     });
   })
 
-  router.get('/getAllCoachs', async function(req, res){
+  router.get('/getAllCoaches', async function(req, res){
     const sql = `
-        SELECT * FROM coach
+        SELECT * FROM coach;
     `;
   
     connection.query(sql, function(err, results) {
@@ -43,11 +43,11 @@ router.post('/addCoach', async function(req, res){
             return res.status(500).json({ error: 'Error getting coachs' });
         }
         if (results.length === 0) {
-            return res.status(404).json({ message: 'Coachs not found' });
+            return res.status(404).json({ message: 'Coaches not found' });
         }
   
         res.status(200).json({ 
-            message: 'Coachs retrieved successfully', 
+            message: 'Coaches retrieved successfully', 
             games: results
         });
     });
@@ -57,7 +57,7 @@ router.post('/addCoach', async function(req, res){
     const id = req.params.coachID
     console.log('Grabbing coach with coach_id:', id);
     const sql = `
-        SELECT * FROM coach WHERE coach_id = ?
+        SELECT * FROM coach WHERE coach_id = ?;
     `;
   
     connection.query(sql, [id], function(err, results) {

@@ -290,6 +290,37 @@ async function deletePlayer(playerID){
     }
 };
 
+/* --------------------- Coach Routing Functions --------------------------- */
+async function getAllCoaches(){
+    try{
+        //Send the request to the backend
+        const response = await fetch(`${BACKENDURL}/getAllCoaches`);
+
+        //Wait for the result from the backend
+        const result = await response.json();
+        console.log(result.message);
+
+        return result;
+    } catch (error) {
+        console.error('An error occurred while getting all Coaches:', error);
+    }
+}
+
+/* --------------------- Team Routing Functions --------------------------- */
+async function getAllTeams(){
+    try{
+        //Send the request to the backend
+        const response = await fetch(`${BACKENDURL}/getAllTeams`);
+
+        //Wait for the result from the backend
+        const result = await response.json();
+        console.log(result.message);
+        return result;
+    } catch (error) {
+        console.error('An error occurred while getting all Teams:', error);
+    }
+}
 module.exports = { getAllPlayers, addPlayer, getPlayer, updatePlayer, deletePlayer,
-    getAllGames, addGame, updateGame, getGame, deleteGame, getAllPlayerStats
+    getAllGames, addGame, updateGame, getGame, deleteGame, getAllPlayerStats, getAllCoaches,
+    getAllTeams
  };

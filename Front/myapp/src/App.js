@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
 import AdminView from "./views/AdminView";
 import "./AdminView.css";
@@ -6,7 +6,9 @@ import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
-const BookData = require('./Data.json')
+const BookData = require('./Data.json');
+const routes = require('./routes.js');
+
 function App() {
   const initialData = {
     Game: [
@@ -33,6 +35,40 @@ function App() {
         {Team_id: 3, Year: 1997, Coach_id: 2, Conference_id: 1, Name: "Bears", WL_pct: 0.66}
     ]
   };
+
+  /**
+   * Load the data into local storage with the given key
+   */
+  function saveDataToLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  /**
+   * Get the data from local storage if data with the key exists
+   * @returns The data as an array of objects
+   */
+  function loadDataFromLocalStorage(key) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  }
+
+ 
+
+  useEffect(() => {
+    //Initally populate the local data files
+    async function fetchAndSaveAllData(){
+      const Teams = await routes.getAllTeams();
+      const players = await routes.getAllPlayers();
+      const coaches = await routes.getAllCoaches();
+
+
+      saveDataToLocalStorage('PlayerData', players);
+      saveDataToLocalStorage('CoachData', coaches);
+      saveDataToLocalStorage('TeamData', Teams);
+    }
+    fetchAndSaveAllData();
+  }, [])
+
 
   const [data, setData] = useState(initialData);
 
@@ -81,7 +117,7 @@ function App() {
             element={
               <>
                 <h1>Player Search</h1>
-                <Searchbar placeholder="Enter a player" data={BookData}/>
+                <Searchbar placeholder="Enter a player" dataLoadFunction={loadDataFromLocalStorage} searchType={"Player"}/>
               </>
             } 
           />
@@ -90,7 +126,7 @@ function App() {
             element={
               <>
                 <h1>Coach Search</h1>
-                <Searchbar placeholder="Enter a coach" data={BookData}/>
+                <Searchbar placeholder="Enter a coach" dataLoadFunction={loadDataFromLocalStorage} searchType={"Coach"}/>
               </>
             } 
           />
@@ -99,7 +135,7 @@ function App() {
             element={
               <>
                 <h1>Team Search</h1>
-                <Searchbar placeholder="Enter a team" data={BookData}/>
+                <Searchbar placeholder="Enter a team" dataLoadFunction={loadDataFromLocalStorage} searchType={"Team"}/>
               </>
             } 
           />
