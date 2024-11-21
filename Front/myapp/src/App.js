@@ -117,7 +117,7 @@ function App() {
             element={
               <>
                 <h1>Player Search</h1>
-                <Searchbar placeholder="Enter a player" dataLoadFunction={loadDataFromLocalStorage} searchType={"Player"}/>
+                <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')}/>
               </>
             } 
           />
@@ -126,7 +126,7 @@ function App() {
             element={
               <>
                 <h1>Coach Search</h1>
-                <Searchbar placeholder="Enter a coach" dataLoadFunction={loadDataFromLocalStorage} searchType={"Coach"}/>
+                <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('CoachData')}/>
               </>
             } 
           />
@@ -135,7 +135,7 @@ function App() {
             element={
               <>
                 <h1>Team Search</h1>
-                <Searchbar placeholder="Enter a team" dataLoadFunction={loadDataFromLocalStorage} searchType={"Team"}/>
+                <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')}/>
               </>
             } 
           />
