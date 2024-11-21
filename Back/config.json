@@ -1,9 +1,9 @@
 {
     "DatabaseConfig": {
-        "user": "root",
-        "password": "$Calico814",
+        "user": "<Username>",
+        "password": "<Password>",
         "port": 3306,
-        "database": "football_data",
+        "database": "<Database>",
         "host": "127.0.0.1"
     },
     "Backend": {
