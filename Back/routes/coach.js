@@ -31,6 +31,27 @@ router.post('/addCoach', async function(req, res){
         });
     });
   })
+
+  router.get('/getAllCoachs', async function(req, res){
+    const sql = `
+        SELECT * FROM coach
+    `;
+  
+    connection.query(sql, function(err, results) {
+        if (err) {
+            console.error('Error getting coachs from database:', err);
+            return res.status(500).json({ error: 'Error getting coachs' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Coachs not found' });
+        }
+  
+        res.status(200).json({ 
+            message: 'Coachs retrieved successfully', 
+            games: results
+        });
+    });
+  })
   
   router.get('/getCoach/:coachID', async function(req, res){
     const id = req.params.coachID

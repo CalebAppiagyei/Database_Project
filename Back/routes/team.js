@@ -4,6 +4,27 @@ const connection = require("../connection");
 
 /* ----------------------- Team Routes ------------------------ */
 
+router.get('/getAllTeams', async function(req, res){
+    const sql = `
+        SELECT * FROM team
+    `;
+  
+    connection.query(sql, function(err, results) {
+        if (err) {
+            console.error('Error getting teams from database:', err);
+            return res.status(500).json({ error: 'Error getting teams' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Teams not found' });
+        }
+  
+        res.status(200).json({ 
+            message: 'TEams retrieved successfully', 
+            games: results
+        });
+    });
+  })
+
 router.get('/getTeam/:teamID', async function(req, res){
     const id = req.params.teamID
     console.log('Grabbing team with team_id:', id);
@@ -52,6 +73,32 @@ router.get('/getTeam/:teamID', async function(req, res){
         });
     })
   })
+
+
+  router.post('/addTeam', async function(req, res) {
+    // Unpack all of the fields sent in the request from the front end
+    const { year, coach_id, conference_id, name, WL_pct } = req.body;
+    console.log('Adding team with params:', req.body);
+    if (!year || !coach_id || !conference_id || !name || !WL_pct) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+  
+    const sql = `
+        INSERT INTO team (year, coach_id, conference_id, name, WL_pct)
+        VALUES (?, ?, ?, ?, ?);
+    `;
+  
+    connection.query(sql, [year, coach_id, conference_id, name, WL_pct], function(err, results) {
+        if (err) {
+            console.error('Error inserting team into database:', err);
+            return res.status(500).json({ error: 'Error adding team' });
+        }
+        res.status(200).json({ 
+            message: 'Team added successfully', 
+            gameId: results.insertId
+        });
+    });
+  });
   
   router.delete('/deleteTeam/:teamID', async function(req, res){
     const id = req.params.teamID;
