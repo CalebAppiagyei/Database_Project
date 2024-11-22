@@ -6,6 +6,7 @@ import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
+import Loginsignup from "./components/auth/Loginsignup.jsx";
 const BookData = require('./Data.json');
 const routes = require('./routes.js');
 
@@ -106,10 +107,11 @@ function App() {
           <Route 
             path="/" 
             element={
-              <>
-                <h1>Welcome</h1>
-                <p>THIS WILL BE LOGIN PAGE???</p>
-              </>
+              // <>
+              //   <h1>Welcome</h1>
+              //   <p>THIS WILL BE LOGIN PAGE???</p>
+              // </>
+              <Loginsignup/>
             } 
           />
           <Route 
