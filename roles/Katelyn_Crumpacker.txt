@@ -1,0 +1,7 @@
+In the development of this project, I took on more of an organizational role. When submitting the final project,
+I made sure that each piece of the report, video, and repository was included. I wrote a lot of the report, and as
+the phases of the project moved a long I kept all of our phase reports and diagrams organized. For the actual project
+content, I sort of helped where I was needed. I worked on the Frontend by doing expanding the admin view, creating 
+the compare view, and working on the report functionality. I also aided a little bit in the backend by working on a few
+endpoint functions. I was worked on the creation of the database structure and schema in MySQL. My role in this project
+was really just to fill in any gaps and help organize our final report.
