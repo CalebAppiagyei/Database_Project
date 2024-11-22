@@ -162,10 +162,9 @@ async function getAllPlayerStats(playerID){
         //Map each of the objects to easy-to-read format
         //Undefined/Null values are assigned 0
         const formattedStats = result.stats.map(stats => ({
-            gameID: stats.game_id,
-            teamID: stats.team_id,
-            playerName: stats.name,
-            playerTeam: stats.team,
+            playerID: stats.player_id,
+            gameDescription: stats.game_description,
+            teamName: stats.team_name,
             passingYards: stats.passing_yds || 0,
             rushingYards: stats.rushing_yds || 0,
             receivingYards: stats.receiving_yds || 0,
@@ -178,8 +177,7 @@ async function getAllPlayerStats(playerID){
             rushAttempts: stats.rush_attempts || 0,
             targets: stats.targets || 0,
             receptions: stats.receptions || 0,
-            interceptions: stats.interceptions || 0,
-            fumbles: stats.fumbles || 0
+            turnovers: stats.turnovers || 0            
         }));
         console.log(formattedStats)
         return formattedStats;

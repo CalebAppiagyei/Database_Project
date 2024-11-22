@@ -6,7 +6,35 @@ const connection = require("../connection");
 
 router.get('/getAllPlayerStats/:playerID', async function(req, res){
     const playerID = req.params.playerID;
-    const sql = `SELECT * FROM player_stats WHERE player_id = ?`;
+    const sql = `SELECT 
+    ps.player_id,
+    CONCAT(ta.name, ' vs ', th.name, ' (', g.year, ')') AS game_description,
+    t.name AS team_name,
+    ps.passing_yds,
+    ps.rushing_yds,
+    ps.receiving_yds,
+    ps.passing_tds,
+    ps.rushing_tds,
+    ps.receiving_tds,
+    ps.misc_tds,
+    ps.pass_attempts,
+    ps.completions,
+    ps.rush_attempts,
+    ps.targets,
+    ps.receptions,
+    (ps.interceptions + ps.fumbles) AS turnovers
+    FROM 
+        football_data.player_stats ps
+    JOIN 
+        football_data.game g ON ps.game_id = g.game_id
+    JOIN 
+        football_data.team t ON ps.team_id = t.team_id
+    JOIN 
+        football_data.team ta ON g.team_away = ta.team_id
+    JOIN 
+        football_data.team th ON g.team_home = th.team_id
+    WHERE 
+        ps.player_id = ?;`;
   
     connection.query(sql, [ playerID ], function(err, results) {
       if (err) {
