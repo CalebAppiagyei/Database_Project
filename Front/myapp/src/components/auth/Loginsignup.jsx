@@ -70,7 +70,7 @@ const Loginsignup = () => {
         <div className={action==="Sign Up" ? "submit gray" : "submit"} onClick={()=>{setAction("Login")}}>Login</div>
       </div>
       <text className="text">or</text>
-        <button className="guest-button">Continue as Guest</button>
+        <button className="guest-button" onClick={() => navigate("/home")}>Continue as Guest</button>
       <div className="inputs">
         {action==="Login"?<div></div>:<div className="input">
             <img src={user} alt="" className='icon'/>
