@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
 import AdminView from "./views/AdminView.js";
 import "./AdminView.css";
+import "./App.css"
 import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
@@ -117,6 +118,7 @@ function App() {
               <>
                 <h1>Player Search</h1>
                 <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')}/>
+                <button>Download results</button>
               </>
             } 
           />
@@ -126,6 +128,7 @@ function App() {
               <>
                 <h1>Coach Search</h1>
                 <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('CoachData')}/>
+                <button>Download results</button>
               </>
             } 
           />
@@ -135,6 +138,7 @@ function App() {
               <>
                 <h1>Team Search</h1>
                 <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')}/>
+                <button>Download results</button>
               </>
             } 
           />
@@ -142,8 +146,11 @@ function App() {
             path="/compare" 
             element={
               <>
-                <h1>Welcome</h1>
-                <p>THIS WILL BE COMPARE PAGE???</p>
+                <h1>Enter two Players to compare...</h1>
+                <div className="searchbar-container">
+                    <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')} />
+                    <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')} />
+                </div>
               </>
             } 
           />
