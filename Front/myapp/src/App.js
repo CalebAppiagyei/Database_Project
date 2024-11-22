@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
-import AdminView from "./views/AdminView";
+import AdminView from "./views/AdminView.js";
 import "./AdminView.css";
 import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
@@ -61,7 +61,6 @@ function App() {
       const players = await routes.getAllPlayers();
       const coaches = await routes.getAllCoaches();
 
-
       saveDataToLocalStorage('PlayerData', players);
       saveDataToLocalStorage('CoachData', coaches);
       saveDataToLocalStorage('TeamData', Teams);
@@ -84,7 +83,7 @@ function App() {
             element={
               <>
                 <h1>Admin View</h1>
-                <AdminView data={data} setData={setData} />
+                <AdminView loadData={loadDataFromLocalStorage} saveData={saveDataToLocalStorage} />
               </>
             } 
           />
