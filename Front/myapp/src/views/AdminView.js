@@ -1,69 +1,64 @@
 import React, { useState, useEffect } from "react";
-import "../AdminView.css"; // Create a separate CSS file if needed.
-const routes = require('../routes.js');
+import "../AdminView.css";
+import PlayerAdminView from "./AdminViewComponents/PlayerAdminView.js";
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
-const AdminView = ({ loadData, saveData }) => {
-    const PlayerData = useState(loadData("PlayerData"));
+const AdminView = () => {
+    const [value, setValue] = React.useState(0);
 
-    const [formData, setFormData] = useState({});
-    const [selectedRow, setSelectedRow] = useState(null);
-    const [action, setAction] = useState(null);
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const openModal = (table, actionType, row = null) => {
-        setAction(actionType);
-        setFormData(row || {});
-        setModalVisible(true);
-        setSelectedRow(row);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
     };
 
-    const handleAdd = async (table) => {
-        openModal(table, "add")
-    };
-
-    const handleEdit = async (table, row) => {
-        openModal(table, "edit", row)
-    };
-
-    const handleDelete = async (data, id, type) => {
-        //Update the table
-        data.filter((e) => e.id != id);
-        saveData("PlayerData", data);
-        PlayerData = data;
-
-        //Update the database
-        routes.deletePlayer(id);
-    }
-
-    const handleSubmit = async (newData, type) =>{
-        if (type === "add"){
-            //Add the player to the DB
-            routes.addPlayer(newData.name, newData.position, newData.team);
-            
-            //Get the new DB table and save locally
-            const data = await routes.getAllPlayers();
-            saveData("PlayerData", data);
-            PlayerData = data;
-        } else if (type === "edit"){
-            routes.editPlayer(newData.id, newData.name, newData.position, newData.team)
-        
-            //Get the new DB table and save locally
-            const data = await routes.getAllPlayers();
-            saveData("PlayerData", data);
-            PlayerData = data;
-        }
-    }
-    
-    console.log(PlayerData)
     return (
-      <div className="AdminView">
-        {   
-            PlayerData[0].map((e) => (
-                <div>{e.name}</div>
-            ))
-        }
-      </div>
+        <> 
+            <div>
+                <Box 
+                    sx={{ 
+                        width: '100%', 
+                        typography: 'body1', 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mt: 2
+                    }}
+                >
+                    <TabContext value={value}>
+                        <Box 
+                            sx={{ 
+                                borderBottom: 1, 
+                                borderColor: 'divider', 
+                                width: "fit-content"
+                            }}
+                        >
+                            <TabList 
+                                onChange={handleChange} 
+                                aria-label="lab API tabs example"
+                            >
+                                <Tab label="Players" value="1" />
+                                <Tab label="Games" value="2" />
+                            </TabList>
+                        </Box>
+
+                        <TabPanel value="1" sx={{ width: "100%" }}>
+                            <div>
+                                <PlayerAdminView/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel value="2" sx={{ width: "100%" }}>
+                            Soon to be Games panel
+                        </TabPanel>
+                    </TabContext>
+                </Box>
+            </div>
+        </>
     );
-}
+};
+
 
 export default AdminView;

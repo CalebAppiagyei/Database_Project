@@ -83,7 +83,7 @@ function App() {
             element={
               <>
                 <h1>Admin View</h1>
-                <AdminView loadData={loadDataFromLocalStorage} saveData={saveDataToLocalStorage} />
+                <AdminView/>
               </>
             } 
           />
