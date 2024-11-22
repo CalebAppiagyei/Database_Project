@@ -1,9 +1,9 @@
 {
     "DatabaseConfig": {
-        "user": "<Username>",
-        "password": "<Password>",
+        "user": "root",
+        "password": "test123",
         "port": 3306,
-        "database": "<Database>",
+        "database": "football_data",
         "host": "127.0.0.1"
     },
     "Backend": {
