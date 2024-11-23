@@ -15,7 +15,7 @@ function PlayerAdminView(){
      const [addModalVisible, setAddModalVisible] = useState(false);
      const [editModalVisible, setEditModalVisible] = useState(false);
      const [editObj, setEditObj] = useState({});
-     const [searchQuery, setSearchQuery] = useState(""); // Track the search input
+     const [searchQuery, setSearchQuery] = useState("");
  
      /**
       * Initally fetch all of the players from the database

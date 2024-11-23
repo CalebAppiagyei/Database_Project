@@ -7,7 +7,7 @@ import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
-const BookData = require('./Data.json');
+import ComparePage from "./components/ComparePage.js";
 const routes = require('./routes.js');
 
 function App() {
@@ -146,11 +146,12 @@ function App() {
             path="/compare" 
             element={
               <>
-                <h1>Enter two Players to compare...</h1>
-                <div className="searchbar-container">
+                <h1>Compare Two Players:</h1>
+                {/* <div className="searchbar-container">
                     <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')} />
                     <Searchbar placeholder="Enter a player" data={loadDataFromLocalStorage('PlayerData')} />
-                </div>
+                </div> */}
+                <ComparePage/>
               </>
             } 
           />

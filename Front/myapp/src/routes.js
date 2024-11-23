@@ -237,6 +237,21 @@ async function getPlayer(playerID){
     }
 };
 
+async function getPlayerStats(playerID){
+    try {
+        //Send the request to the backend
+        const response = await fetch(`${BACKENDURL}/getAllPlayerStats/${playerID}`);
+        const result = await response.json();
+
+        //Access all of the fields sent by a successful response
+        const stats = result.stats;
+        console.log(result.message);
+        return stats;
+
+    } catch (error) {
+        console.error('An error occurred while getting a player:', error);
+    }
+}
 /**
  * Updates the player with the given id with the params
  */
@@ -320,5 +335,5 @@ async function getAllTeams(){
 }
 module.exports = { getAllPlayers, addPlayer, getPlayer, updatePlayer, deletePlayer,
     getAllGames, addGame, updateGame, getGame, deleteGame, getAllPlayerStats, getAllCoaches,
-    getAllTeams
+    getAllTeams, getPlayerStats
  };

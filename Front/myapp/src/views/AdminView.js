@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../AdminView.css";
 import PlayerAdminView from "./AdminViewComponents/PlayerAdminView.js";
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
 const AdminView = () => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -38,7 +38,6 @@ const AdminView = () => {
                         >
                             <TabList 
                                 onChange={handleChange} 
-                                aria-label="lab API tabs example"
                             >
                                 <Tab label="Players" value="1" />
                                 <Tab label="Games" value="2" />
