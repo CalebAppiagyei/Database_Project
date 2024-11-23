@@ -10,8 +10,7 @@ const routes = require('../../routes.js');
 
 function CompareTable(props){
     const [rows, setRows] = useState([])
-    const [player1Stats, setPlayer1Stats] = useState({})
-    const [player2Stats, setPlayer2Stats] = useState({})
+    
 
     function averageStats(statsArray) {
         if (!Array.isArray(statsArray) || statsArray.length === 0) {
@@ -46,7 +45,7 @@ function CompareTable(props){
             if (props.player1?.id) {
                 const p1 = await routes.getPlayerStats(props.player1.id);
                 const averagedStats = averageStats(p1);
-                setPlayer1Stats(averagedStats);
+                props.setPlayer1Stats(averagedStats);
             }
         }
         updatePlayer1();
@@ -57,7 +56,7 @@ function CompareTable(props){
             if (props.player2?.id) {
                 const p2 = await routes.getPlayerStats(props.player2.id);
                 const averagedStats = averageStats(p2);
-                setPlayer2Stats(averagedStats);
+                props.setPlayer2Stats(averagedStats);
             }
         }
         updatePlayer2();
@@ -74,23 +73,23 @@ function CompareTable(props){
                 </TableRow>
             </TableHead>
             <TableBody>
-            {Object.keys(player1Stats).map((key) => {
+            {Object.keys(props.player1Stats).map((key) => {
                 if (key !== "player_id" && key !== "game_id" && key !== "team_id") {
-                    if (player1Stats[key] > player2Stats[key]){
+                    if (props.player1Stats[key] > props.player2Stats[key]){
                         return (
                             <TableRow key={key}>
                                 <TableCell align="center">{key}</TableCell>
-                                <TableCell align="center" sx={{backgroundColor:"greenyellow"}}>{player1Stats[key]}</TableCell>
-                                <TableCell align="center">{player2Stats[key]}</TableCell>
+                                <TableCell align="center" sx={{backgroundColor:"greenyellow"}}>{props.player1Stats[key]}</TableCell>
+                                <TableCell align="center">{props.player2Stats[key]}</TableCell>
                             </TableRow>
                         )
                     }
-                    else if (player1Stats[key] < player2Stats[key]){
+                    else if (props.player1Stats[key] < props.player2Stats[key]){
                         return (
                             <TableRow key={key}>
                                 <TableCell align="center">{key}</TableCell>
-                                <TableCell align="center">{player1Stats[key]}</TableCell>
-                                <TableCell align="center" sx={{backgroundColor:"greenyellow"}}>{player2Stats[key]}</TableCell>
+                                <TableCell align="center">{props.player1Stats[key]}</TableCell>
+                                <TableCell align="center" sx={{backgroundColor:"greenyellow"}}>{props.player2Stats[key]}</TableCell>
                             </TableRow>
                         )
                     }
@@ -98,8 +97,8 @@ function CompareTable(props){
                         return (
                             <TableRow key={key}>
                                 <TableCell align="center">{key}</TableCell>
-                                <TableCell align="center">{player1Stats[key]}</TableCell>
-                                <TableCell align="center">{player2Stats[key]}</TableCell>
+                                <TableCell align="center">{props.player1Stats[key]}</TableCell>
+                                <TableCell align="center">{props.player2Stats[key]}</TableCell>
                             </TableRow>
                         );
                     }

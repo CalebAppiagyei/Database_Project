@@ -8,13 +8,17 @@ const routes = require('../routes.js');
 function ComparePage(){
     const [player1Name, setPlayer1Name] = useState("");
     const [player2Name, setPlayer2Name] = useState("");
-    const [playerData, setPlayerData] = useState([]);
     const [rows1, setRows1] = useState([]);
     const [rows2, setRows2] = useState([]);
-    const [filteredRows, setFilteredRows] = useState([]);
     const [player1, setPlayer1] = useState({});
     const [player2, setPlayer2] = useState({});
+    const [player1Stats, setPlayer1Stats] = useState({})
+    const [player2Stats, setPlayer2Stats] = useState({})
 
+    function handleGenerateTable(){
+
+    }
+    
     return (
         <>
             <SearchBars setPlayer1Name={setPlayer1Name} setPlayer2Name={setPlayer2Name}/>
@@ -29,13 +33,14 @@ function ComparePage(){
                 </div>
             </div>
             <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "center"}}>
-                <Button sx={{margin: "20px", width: "160px"}}>Download Table</Button>
+                <Button sx={{margin: "20px", width: "160px"}} onClick={handleGenerateTable}>Download Table</Button>
                 <Button sx={{margin: "20px", width: "160px"}}>Download Graph</Button>
             </div>
             
             Player game average:
             <div className="CompareTablesWrapper" style={{width: "100%", marginTop: "30px"}}>
-                <CompareTable player1={player1} player2={player2}/>
+                <CompareTable player1={player1} player2={player2} player1Stats={player1Stats} player2Stats={player2Stats}
+                setPlayer1Stats={setPlayer1Stats} setPlayer2Stats={setPlayer2Stats}/>
             </div>
             
         </>
