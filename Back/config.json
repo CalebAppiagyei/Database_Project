@@ -1,10 +1,10 @@
 {
     "DatabaseConfig": {
-        "user": "<Username>",
-        "password": "<Password>",
+        "user": "root",
+        "password": "ChangeMe",
         "port": 3306,
-        "database": "<Database>",
-        "host": "127.0.0.1"
+        "database": "football_data",
+        "host": "back-mysql-1"
     },
     "Backend": {
         "port": 5000
