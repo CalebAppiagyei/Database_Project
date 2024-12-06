@@ -66,8 +66,7 @@ CREATE TABLE football_data.game_stats (
 CREATE TABLE football_data.player (
   `player_id` int NOT NULL AUTO_INCREMENT,
   `position_id` int DEFAULT NULL,
-  `first_name` varchar(100) DEFAULT NULL,
-  `last_name` varchar(100) DEFAULT NULL,
+  `Name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`player_id`),
   FOREIGN KEY (`position_id`) REFERENCES `position` (`position_id`)
 );
@@ -239,28 +238,28 @@ VALUES
 (12, 14, 400, 4, 1, 0);
 
 -- Sample Data for player --
-INSERT INTO football_data.player (player_id, position_id, first_name, last_name)
+INSERT INTO football_data.player (player_id, position_id, Name)
 VALUES
-(1, 1, 'Patrick', 'Mahomes'),
-(2, 2, 'Derrick', 'Henry'),
-(3, 3, 'Tyreek', 'Hill'),
-(4, 4, 'Travis', 'Kelce'),
-(5, 5, 'Justin', 'Tucker'),
-(6, 1, 'Josh', 'Allen'),
-(7, 2, 'Alvin', 'Kamara'),
-(8, 3, 'Stefon', 'Diggs'),
-(9, 4, 'George', 'Kittle'),
-(10, 5, 'Harrison', 'Butker'),
-(11, 1, 'Lamar', 'Jackson'),
-(12, 2, 'Saquon', 'Barkley'),
-(13, 3, 'Davante', 'Adams'),
-(14, 4, 'Darren', 'Waller'),
-(15, 5, 'Robbie', 'Gould'),
-(16, 1, 'Aaron', 'Rodgers'),
-(17, 2, 'Jonathan', 'Taylor'),
-(18, 3, 'Justin', 'Jefferson'),
-(19, 4, 'Mark', 'Andrews'),
-(20, 5, 'Evan', 'McPherson');
+(1, 1, 'Patrick Mahomes'),
+(2, 2, 'Derrick Henry'),
+(3, 3, 'Tyreek Hill'),
+(4, 4, 'Travis Kelce'),
+(5, 5, 'Justin Tucker'),
+(6, 1, 'Josh Allen'),
+(7, 2, 'Alvin Kamara'),
+(8, 3, 'Stefon Diggs'),
+(9, 4, 'George Kittle'),
+(10, 5, 'Harrison Butker'),
+(11, 1, 'Lamar Jackson'),
+(12, 2, 'Saquon Barkley'),
+(13, 3, 'Davante Adams'),
+(14, 4, 'Darren Waller'),
+(15, 5, 'Robbie Gould'),
+(16, 1, 'Aaron Rodgers'),
+(17, 2, 'Jonathan Taylor'),
+(18, 3, 'Justin Jefferson'),
+(19, 4, 'Mark Andrews'),
+(20, 5, 'Evan McPherson');
 
 -- Sample Data for player_stats --
 INSERT INTO football_data.player_stats (player_id, game_id, team_id, passing_yds, rushing_yds, receiving_yds, passing_tds, rushing_tds, receiving_tds, misc_tds, pass_attempts, completions, rush_attempts, targets, receptions, turnovers)
@@ -285,3 +284,36 @@ VALUES
 (18, 3, 3, 0, 0, 130, 0, 0, 1, 0, 0, 0, 12, 10, 0, 0),
 (19, 4, 4, 0, 0, 95, 0, 0, 1, 0, 0, 0, 6, 5, 0, 0),
 (20, 5, 5, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0);
+
+
+-- SELECT 
+--     ps.player_id,
+--     CONCAT(ta.name, ' vs ', th.name, ' (', g.year, ')') AS game_description,
+--     t.name AS team_name,
+--     ps.passing_yds,
+--     ps.rushing_yds,
+--     ps.receiving_yds,
+--     ps.passing_tds,
+--     ps.rushing_tds,
+--     ps.receiving_tds,
+--     ps.misc_tds,
+--     ps.pass_attempts,
+--     ps.completions,
+--     ps.rush_attempts,
+--     ps.targets,
+--     ps.receptions,
+--     ps.turnovers
+-- FROM 
+--     football_data.player_stats ps
+-- JOIN 
+--     football_data.game g ON ps.game_id = g.game_id
+-- JOIN 
+--     football_data.team t ON ps.team_id = t.team_id
+-- JOIN 
+--     football_data.team ta ON g.team_away = ta.team_id
+-- JOIN 
+--     football_data.team th ON g.team_home = th.team_id
+-- WHERE 
+--     ps.player_id = 1;
+
+

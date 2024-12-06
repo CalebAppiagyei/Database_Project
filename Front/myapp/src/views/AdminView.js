@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import "../AdminView.css"; // Create a separate CSS file if needed.
 import Profile from "../components/Profile";
@@ -350,9 +351,8 @@ const AdminView = ({ data, setData }) => {
             </form>
           </div>
         </>
-      )}
-    </div>
-  );
+    );
 };
+
 
 export default AdminView;

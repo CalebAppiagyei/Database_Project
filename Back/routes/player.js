@@ -99,7 +99,7 @@ router.get('/getAllPlayers', async function(req, res){
   
   })
   
-  router.get('/updatePlayer/:playerID', async function(req, res){
+  router.post('/updatePlayer/:playerID', async function(req, res){
     const id = req.params.playerID;
     const { Name, position, team } = req.body;
   
@@ -108,9 +108,9 @@ router.get('/getAllPlayers', async function(req, res){
     }
   
     const position_id = position_to_id(position);
-    const sql = `UPDATE player SET position_id = ? Name = ?, position = ?, team = ? WHERE player_id = ?`;
+    const sql = `UPDATE player SET position_id = ?, Name = ?, position = ?, team = ? WHERE player_id = ?`;
   
-    connection.query(sql, [id, position_id, Name, position, team], function(err, results) {
+    connection.query(sql, [position_id, Name, position, team, id], function(err, results) {
         if (err) {
             console.error('Error updating a player in the database:', err);
             return res.status(500).json({ error: 'Error updating a player' });

@@ -162,10 +162,9 @@ async function getAllPlayerStats(playerID){
         //Map each of the objects to easy-to-read format
         //Undefined/Null values are assigned 0
         const formattedStats = result.stats.map(stats => ({
-            gameID: stats.game_id,
-            teamID: stats.team_id,
-            playerName: stats.name,
-            playerTeam: stats.team,
+            playerID: stats.player_id,
+            gameDescription: stats.game_description,
+            teamName: stats.team_name,
             passingYards: stats.passing_yds || 0,
             rushingYards: stats.rushing_yds || 0,
             receivingYards: stats.receiving_yds || 0,
@@ -178,8 +177,7 @@ async function getAllPlayerStats(playerID){
             rushAttempts: stats.rush_attempts || 0,
             targets: stats.targets || 0,
             receptions: stats.receptions || 0,
-            interceptions: stats.interceptions || 0,
-            fumbles: stats.fumbles || 0
+            turnovers: stats.turnovers || 0            
         }));
         console.log(formattedStats)
         return formattedStats;
@@ -239,6 +237,21 @@ async function getPlayer(playerID){
     }
 };
 
+async function getPlayerStats(playerID){
+    try {
+        //Send the request to the backend
+        const response = await fetch(`${BACKENDURL}/getAllPlayerStats/${playerID}`);
+        const result = await response.json();
+
+        //Access all of the fields sent by a successful response
+        const stats = result.stats;
+        console.log(result.message);
+        return stats;
+
+    } catch (error) {
+        console.error('An error occurred while getting a player:', error);
+    }
+}
 /**
  * Updates the player with the given id with the params
  */
@@ -322,5 +335,5 @@ async function getAllTeams(){
 }
 module.exports = { getAllPlayers, addPlayer, getPlayer, updatePlayer, deletePlayer,
     getAllGames, addGame, updateGame, getGame, deleteGame, getAllPlayerStats, getAllCoaches,
-    getAllTeams
+    getAllTeams, getPlayerStats
  };
