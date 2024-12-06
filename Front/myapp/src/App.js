@@ -11,7 +11,6 @@ import ComparePage from "./components/ComparePage.js";
 const routes = require('./routes.js');
 
 function App() {
-  const [data, setData] = useState(initialData);
 
   return (
     <Router>
