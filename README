@@ -1,0 +1,25 @@
+Using containers and docker-compose:
+1. Make sure that you have installed `Docker Desktop` and that it is currently running
+
+2. Make sure your local mysql service is not running:
+    - Press `windows button` -> Search and select `services` -> Scroll down to `MySQL80` and select -> Select to `stop the service` on the left
+
+3. Build the backend and frontend containers:
+    - Navigate to the root directory and execute `fakemake.sh`
+    - Wait for all of the containers to be built (Depending on how much you changed, this could take a while)
+    - Do `docker-compose up` to start the containers
+
+4. View the application:
+    - Navigate to `http://localhost:3000/` (This should be where the application is being hosted)
+
+-------------------------------------------------------------------------------------------
+
+Troubleshooting:
+
+1. Database not found:
+    - back-1   | Error connecting to the database: Error: getaddrinfo ENOTFOUND database
+    back-1   |     at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:120:26)
+    
+    - Fix: Go to docker desktop and look at the name of the collection of containers
+        - Go to the `config.json` file in the Back
+        - Edit the `host` to be `<name>-mysql-1`

@@ -46,7 +46,7 @@ const Loginsignup = () => {
           confirmButtonColor: '#649673',
         }).then(() => {
           console.log("Navigating to /admin");
-          navigate("/admin");
+          navigate("/compare");
         });
       } else {
         console.log("No token in response:", response.data);

@@ -4,7 +4,7 @@
         "password": "ChangeMe",
         "port": 3306,
         "database": "football_data",
-        "host": "back-mysql-1"
+        "host": "databaseproj-mysql-1"
     },
     "Backend": {
         "port": 5000

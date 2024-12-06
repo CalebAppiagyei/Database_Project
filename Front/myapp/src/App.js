@@ -1,9 +1,8 @@
-import React, { useState, useEffect} from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";  
 import AdminView from "./views/AdminView.js";
 import "./AdminView.css";
 import "./App.css"
-import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
