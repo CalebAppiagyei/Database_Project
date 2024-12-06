@@ -1,15 +1,16 @@
-var mysql = require('mysql2');
-var config = require('./config.json')
+const mysql = require('mysql2');
+const config = require('./config.json');
 
-var connection = mysql.createConnection({
-  host: config.DatabaseConfig.host,
-  port: config.DatabaseConfig.port,
-  user: config.DatabaseConfig.user,
-  password: config.DatabaseConfig.password,
-  database: config.DatabaseConfig.database
+// Create a single connection
+const connection = mysql.createConnection({
+  host: 'back-mysql-1',
+  user: 'user',
+  password: 'password',
+  database: 'football_data'
 });
 
-connection.connect(function(err) {
+// Connect to the database
+connection.connect((err) => {
   if (err) {
     console.error('Error connecting to the database: ' + err.stack);
     return;
@@ -17,4 +18,5 @@ connection.connect(function(err) {
   console.log('Connected to the database as id ' + connection.threadId);
 });
 
+// Export the connection for use in other modules
 module.exports = connection;
