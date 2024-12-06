@@ -40,6 +40,7 @@ const conferenceRoutes = require("./routes/conference");
 const statsRoutes = require("./routes/stats");
 const teamRoutes = require("./routes/team");
 
+const authRoutes = require("./routes/auth");
 //Make the app listen to the endpoints
 //Using no prefix so that endpoints stay the same as before
 app.use('', playerRoutes);
@@ -49,4 +50,5 @@ app.use('', conferenceRoutes);
 app.use('', statsRoutes);
 app.use('', teamRoutes);
 
+app.use('', authRoutes);
 module.exports = app;

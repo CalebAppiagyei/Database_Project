@@ -7,11 +7,15 @@ import Searchbar from "./components/Searchbar";
 import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
-import ComparePage from "./components/ComparePage.js";
+import Loginsignup from "./components/auth/Loginsignup.jsx";
+import Profile from "./components/Profile.jsx";
+import CreateNewUser from "./components/CreateNewUser.jsx";
+const BookData = require('./Data.json');
 const routes = require('./routes.js');
 
 function App() {
-
+import ComparePage from "./components/ComparePage.js";
+const routes = require('./routes.js');
   return (
     <Router>
       <div className="App">
@@ -46,11 +50,20 @@ function App() {
           <Route 
             path="/" 
             element={
-              <>
-                <h1>Welcome</h1>
-                <p>THIS WILL BE LOGIN PAGE???</p>
-              </>
+              // <>
+              //   <h1>Welcome</h1>
+              //   <p>THIS WILL BE LOGIN PAGE???</p>
+              // </>
+              <Loginsignup/>
             } 
+          />
+          <Route 
+            path="/profile" 
+            element={<Profile />}
+          />
+          <Route 
+            path="/create-new-user" 
+            element={<CreateNewUser />}
           />
           <Route 
             path="/player" 
