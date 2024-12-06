@@ -34,9 +34,8 @@ const ChangePassword = () => {
                 alert(result.message);
             }
         } catch (error) {
-            alert("an unexpected error??");
+            alert("Changing password failed.");
         }
-        
     };
   return (
     <div>
@@ -47,11 +46,13 @@ const ChangePassword = () => {
         {showForm && (
         <div>
         <h2>Change Password</h2>
-        <form onSubmit ={handlePasswordChange} className="inputs">
+        
+        <form onSubmit ={handlePasswordChange} >
+        <div className = "inputs">
             <div className="input">
             <input
                 type= "password"
-                placeholder="old password"
+                placeholder="Current password"
                 value={passwordData.oldPassword}
                 onChange={(e) => setPasswordData({...passwordData, oldPassword: e.target.value})}
                 required
@@ -60,7 +61,7 @@ const ChangePassword = () => {
             <div className="input">
             <input
                 type= "password"
-                placeholder="new password"
+                placeholder="New password"
                 value={passwordData.newPassword}
                 onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}
                 required
@@ -68,10 +69,11 @@ const ChangePassword = () => {
             />
             </div>
             <div className="submit-container">
-            <button className="submit-button">Submit :D</button>
+            <button className="submit-button">Submit</button>
             <button type="button"
             onClick={() => setShowForm(false)}
             className="submit-button">Cancel</button>
+            </div>
             </div>
         </form>
         

@@ -7,6 +7,8 @@ import CoachCard from "./components/CoachCard";
 import PlayerCard from "./components/PlayerCard";
 import TeamCard from "./components/TeamCard";
 import Loginsignup from "./components/auth/Loginsignup.jsx";
+import Profile from "./components/Profile.jsx";
+import CreateNewUser from "./components/CreateNewUser.jsx";
 const BookData = require('./Data.json');
 const routes = require('./routes.js');
 
@@ -50,7 +52,14 @@ function App() {
    */
   function loadDataFromLocalStorage(key) {
     const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
+    if (!data) return null; // Return null if no data exists for the key
+  
+    try {
+      return JSON.parse(data);
+    } catch (error) {
+      console.error(`Error parsing data from localStorage for key=${key}:`, error);
+      return null; // Return null if parsing fails
+    }
   }
 
  
@@ -113,6 +122,14 @@ function App() {
               // </>
               <Loginsignup/>
             } 
+          />
+          <Route 
+            path="/profile" 
+            element={<Profile />}
+          />
+          <Route 
+            path="/create-new-user" 
+            element={<CreateNewUser />}
           />
           <Route 
             path="/player" 

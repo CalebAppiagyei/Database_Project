@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../AdminView.css"; // Create a separate CSS file if needed.
+import Profile from "../components/Profile";
+import Navbar from "../components/Navbar";
 
 
 // coaches you can currently specify an id (its supposed to be autoincrement)
@@ -300,6 +302,7 @@ const AdminView = ({ data, setData }) => {
 
   return (
     <div className="AdminView">
+      <Navbar/>
       {Object.keys(data).map((table) => (
         <div key={table} className="section">
           <h2>{table}</h2>

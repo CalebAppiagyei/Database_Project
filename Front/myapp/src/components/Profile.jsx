@@ -12,7 +12,7 @@ const Profile = () => {
         const fetchUserProfile = async () => {
             const token = localStorage.getItem("token");
             if (!token) {
-                alert("plz login");
+                alert("Please login to view profile.");
                 navigate("/");
                 return;
             }
@@ -31,7 +31,6 @@ const Profile = () => {
                     alert("failed to fetch profile");
                 }
             } catch(error) {
-                alert("unexpected error");
             }
         };
         fetchUserProfile();
@@ -45,7 +44,7 @@ const Profile = () => {
     <div><HomeButton />
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h1>Profile</h1>
-      <p><strong>Nameeee:</strong> {user?.name}</p>
+      <p><strong>Name:</strong> {user?.name}</p>
       <p><strong>Email:</strong> {user?.email}</p>
       <LogoutButton/>
       <button onClick={handleCreateNewUser} className="submit-button">
