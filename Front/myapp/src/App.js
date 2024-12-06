@@ -10,11 +10,12 @@ import TeamCard from "./components/TeamCard";
 import Loginsignup from "./components/auth/Loginsignup.jsx";
 import Profile from "./components/Profile.jsx";
 import CreateNewUser from "./components/CreateNewUser.jsx";
+import ComparePage from "./components/ComparePage.js";
 const BookData = require('./Data.json');
 const routes = require('./routes.js');
 
+
 function App() {
-import ComparePage from "./components/ComparePage.js";
 const routes = require('./routes.js');
   return (
     <Router>
